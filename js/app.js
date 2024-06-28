@@ -144,26 +144,47 @@
         if (panel.style.maxHeight) panel.style.maxHeight = null; else panel.style.maxHeight = panel.scrollHeight + "px";
     }));
     document.addEventListener("DOMContentLoaded", (() => {
-        const customSelectWrappers = document.querySelectorAll(".custom-select-wrapper");
-        customSelectWrappers.forEach((wrapper => {
-            const customSelect = wrapper.querySelector(".custom-select");
-            const customSelectTrigger = wrapper.querySelector(".custom-select__trigger");
-            const customOptions = wrapper.querySelectorAll(".custom-option");
-            customSelectTrigger.addEventListener("click", (() => {
-                customSelect.classList.toggle("opened");
+        const customSelectWrapper = document.querySelector(".custom-select-wrapper");
+        const customSelect = customSelectWrapper.querySelector(".custom-select");
+        const customSelectTrigger = customSelect.querySelector(".custom-select__trigger");
+        const customOptions = customSelect.querySelector(".custom-options");
+        const customOptionElements = customOptions.querySelectorAll(".custom-option");
+        customSelectTrigger.addEventListener("click", (() => {
+            customSelect.classList.toggle("opened");
+        }));
+        customOptionElements.forEach((option => {
+            option.addEventListener("click", (() => {
+                const selectedOption = customSelect.querySelector(".custom-option.selected");
+                selectedOption.classList.remove("selected");
+                option.classList.add("selected");
+                customSelectTrigger.querySelector("span").innerHTML = option.innerHTML;
+                customSelect.classList.remove("opened");
             }));
-            customOptions.forEach((option => {
-                option.addEventListener("click", (() => {
-                    const selectedOption = wrapper.querySelector(".custom-option.selected");
-                    if (selectedOption) selectedOption.classList.remove("selected");
-                    option.classList.add("selected");
-                    customSelectTrigger.querySelector("span").innerHTML = option.innerHTML;
-                    customSelect.classList.remove("opened");
-                }));
+        }));
+        document.addEventListener("click", (e => {
+            if (!customSelect.contains(e.target)) customSelect.classList.remove("opened");
+        }));
+    }));
+    document.addEventListener("DOMContentLoaded", (() => {
+        const customSelectWrapper = document.querySelector(".custom-select-wrapper-unique");
+        const customSelect = customSelectWrapper.querySelector(".custom-select-unique");
+        const customSelectTrigger = customSelect.querySelector(".custom-select-trigger-unique");
+        const customOptions = customSelect.querySelector(".custom-options-unique");
+        const customOptionElements = customOptions.querySelectorAll(".custom-option-unique");
+        customSelectTrigger.addEventListener("click", (() => {
+            customSelect.classList.toggle("opened");
+        }));
+        customOptionElements.forEach((option => {
+            option.addEventListener("click", (() => {
+                const selectedOption = customSelect.querySelector(".custom-option-unique.selected");
+                selectedOption.classList.remove("selected");
+                option.classList.add("selected");
+                customSelectTrigger.querySelector("span").innerHTML = option.innerHTML;
+                customSelect.classList.remove("opened");
             }));
-            document.addEventListener("click", (e => {
-                if (!wrapper.contains(e.target)) customSelect.classList.remove("opened");
-            }));
+        }));
+        document.addEventListener("click", (e => {
+            if (!customSelect.contains(e.target)) customSelect.classList.remove("opened");
         }));
     }));
     window["FLS"] = true;
