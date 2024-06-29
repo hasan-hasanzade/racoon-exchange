@@ -491,7 +491,7 @@ h6 {
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  z-index: 2
+  /* z-index: 2 */
 }
 .custom-select {
   position: relative;
@@ -680,7 +680,6 @@ h6 {
 .why__body {
   margin-top: 40px;
   display: flex;
-  align-items: center;
   justify-content: space-between
 }
 .rates {
